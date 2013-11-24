@@ -27,11 +27,12 @@ class IndexController extends AbstractActionController
 		
 		
 		$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
-		$usuario->testDB();
-// 		$usuario= new UsuarioService();
-		$usuario->setNombre('cesar arturo');
-		$usuario->setApellidoPaterno('ciau');
-		$usuario->setApellidoMaterno('mendoza');
+		$usuario->loadById(1);
+		//$usuario->testDB();
+		//$usuario= new UsuarioService();
+// 		$usuario->setNombre('cesar arturo');
+// 		$usuario->setApellidoPaterno('ciau');
+// 		$usuario->setApellidoMaterno('mendoza');
 		echo get_class($usuario);
 		
 		
