@@ -21,7 +21,7 @@ return array(
                 ),
             ),
         		'hola' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route'    => '/hola',
                     'defaults' => array(
@@ -30,6 +30,22 @@ return array(
                     ),
                 ),
             ),
+						'hola2' => array (
+								'type' => 'Segment',
+								'options' => array (
+										'route' => '/hola2[/:conroller[/:action[/:id]]]',
+										'constrains' => array (
+												'controller' => '[a-zA-Z][a-zA-Z0-9_-]+',
+												'action' => '[a-zA-Z][a-zA-Z0-9_-]+' 
+										),
+										'defaults' => array (
+												'__NAMESPACE__' => 'Application\Controller',
+												'controller' => 'index',
+												'action' => 'hola',
+												'id' => 2 
+										) 
+								) 
+						),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
