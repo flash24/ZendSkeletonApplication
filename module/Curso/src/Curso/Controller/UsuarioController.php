@@ -11,10 +11,7 @@ class UsuarioController extends AbstractActionController
 	    	$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
 	      	$params=$this->params()->fromRoute();
 	      	/////////////////////
-	      
-	    	$usuario->loadById($params['id']);
-	    	//print_r($usuario);
-	    	$data['hola']=$usuario->getPersona();
+	       	
 	    	$data['all']=$usuario->loadAll();
 	        return new ViewModel($data);
 	    }
@@ -30,11 +27,30 @@ class UsuarioController extends AbstractActionController
 	    	
  	    	$data['delete']=$usuario->deleteById($params['id']);
    //         $data['delete']=$params['id'];
-	    	return new ViewModel($data);
+	    	//return new ViewModel($data);
+
+
+ 	    	return $this->redirect()->toRoute('usuario');
+ 	    	 
 	    }
 	    
 	    public function EditAction(){
+	    	$prg = $this->prg('/usuario/index', true);
+	    	$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
+	    	$params=$this->params()->fromRoute();
+	    	$data['datos']=$usuario->loadById($params['id']);
+	    	if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
+	    		$datos=array();
+	    		$datos['nombre']=$this->params()->fromPost('nombre');
+	    		$datos['apellido_paterno']=$this->params()->fromPost('apellido_paterno');
+	    		$datos['apellido_materno']=$this->params()->fromPost('apellido_materno');
+	    		$usuario->editById($this->params()->fromPost('user_id'), $datos);
+	    		// returned a response to redirect us
+	    		return $prg;
+	    	}
+            print_r($this->params()->fromPost('nombre'));
 	    	
+	    	return new ViewModel($data);
 	    }
 	    
 	

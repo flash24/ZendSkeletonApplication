@@ -36,18 +36,18 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 		$result = $adapter->query ( 'SELECT * FROM `user` WHERE `user_id` = ?', array (
 				$user_id 
 		) );
-		$data = $result->current ();
-		
-		if ($data !== null) {
-			$this->hydrator ( $data );
-			return true;
-		}
-		return false;
+		$data = $result->current();
+		return $data;
+// 		if ($data !== null) {
+// 			$this->hydrator ( $data );
+// 			return true;
+// 		}
+// 		return false;
 	}
 	function hydrator($data) {
-		$this->setNombre ( $data->nombre );
-		$this->setApellidoPaterno ( $data->apellido_paterno );
-		$this->setApellidoMaterno ( $data->apellido_materno );
+// 		$this->setNombre ( $data->nombre );
+// 		$this->setApellidoPaterno ( $data->apellido_paterno );
+// 		$this->setApellidoMaterno ( $data->apellido_materno );
 	}
 	function loadAll() {
 		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
@@ -74,6 +74,28 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 		
 		// or delete this row:
 		return $rowGateway->delete ();
+	}
+	
+	function editById($user_id,$data){
+		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
+		// query the database
+		$resultSet = $adapter->query ( 'SELECT * FROM `user` WHERE `user_id` = ?', array (
+				$user_id
+		) );
+		
+		// get array of data
+		$rowData = $resultSet->current ()->getArrayCopy ();
+		
+		// row gateway
+		$rowGateway = new RowGateway ('user_id', 'user', $adapter );
+		$rowGateway->populate ( $rowData,true );
+		$rowGateway->nombre = $data['nombre'];
+		$rowGateway->apellido_materno =$data['apellido_materno'];
+		$rowGateway->apellido_paterno = $data['apellido_paterno'];
+		$rowGateway->save();
+		
+		
+		
 	}
 	public function getNombre() {
 		return $this->nombre . ' ' . $this->apellidoPaterno . '' . $this->apellidoMaterno;
