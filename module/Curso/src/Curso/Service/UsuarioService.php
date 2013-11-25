@@ -22,7 +22,7 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 	}
 	public function testDB() {
 		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
-		$result = $adapter->query ( 'SELECT * FROM `user` WHERE `user_id` = ?', array (
+		$result = $adapter->query ( 'SELECT * FROM `usuario` WHERE `user_id` = ?', array (
 				1 
 		) );
 		
@@ -33,7 +33,7 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 	}
 	function loadById($user_id) {
 		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
-		$result = $adapter->query ( 'SELECT * FROM `user` WHERE `user_id` = ?', array (
+		$result = $adapter->query ( 'SELECT * FROM `usuario` WHERE `user_id` = ?', array (
 				$user_id 
 		) );
 		$data = $result->current();
@@ -51,7 +51,7 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 	}
 	function loadAll() {
 		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
-		$result = $adapter->query ( 'SELECT * FROM `user`', Adapter::QUERY_MODE_EXECUTE );
+		$result = $adapter->query ( 'SELECT * FROM `usuario`', Adapter::QUERY_MODE_EXECUTE );
 		
 		$data = $result->toArray ();
 		return $data;
@@ -59,7 +59,7 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 	function deleteById($user_id) {
 		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
 		// query the database
-		$resultSet = $adapter->query ( 'SELECT * FROM `user` WHERE `user_id` = ?', array (
+		$resultSet = $adapter->query ( 'SELECT * FROM `usuario` WHERE `user_id` = ?', array (
 				$user_id 
 		) );
 		
@@ -67,7 +67,7 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 		$rowData = $resultSet->current ()->getArrayCopy ();
 		
 		// row gateway
-		$rowGateway = new RowGateway ('user_id', 'user', $adapter );
+		$rowGateway = new RowGateway ('user_id', 'usuario', $adapter );
 		$rowGateway->populate ( $rowData,true );
 		
 
@@ -79,7 +79,7 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 	function editById($user_id,$data){
 		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
 		// query the database
-		$resultSet = $adapter->query ( 'SELECT * FROM `user` WHERE `user_id` = ?', array (
+		$resultSet = $adapter->query ( 'SELECT * FROM `usuario` WHERE `user_id` = ?', array (
 				$user_id
 		) );
 		
@@ -87,7 +87,7 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 		$rowData = $resultSet->current ()->getArrayCopy ();
 		
 		// row gateway
-		$rowGateway = new RowGateway ('user_id', 'user', $adapter );
+		$rowGateway = new RowGateway ('user_id', 'usuario', $adapter );
 		$rowGateway->populate ( $rowData,true );
 		$rowGateway->nombre = $data['nombre'];
 		$rowGateway->apellido_materno =$data['apellido_materno'];
@@ -95,6 +95,16 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 		$rowGateway->save();
 		
 		
+		
+	}
+	
+	function add($data){
+		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
+		$rowGateway = new RowGateway ('user_id', 'usuario', $adapter );
+		//$rowData=array();
+		
+		$rowGateway->populate( $data);	
+		$rowGateway->save();
 		
 	}
 	public function getNombre() {

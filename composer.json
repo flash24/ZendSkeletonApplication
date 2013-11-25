@@ -12,6 +12,7 @@
         "zendframework/zendframework": "2.2.*",
         "zendframework/zftool": "dev-master",
         "zendframework/zend-developer-tools": "dev-master",
-        "bjyoungblood/bjy-profiler": "dev-master"
+        "bjyoungblood/bjy-profiler": "dev-master",
+        "zf-commons/zfc-user": "0.1.*@dev"
     }
 }

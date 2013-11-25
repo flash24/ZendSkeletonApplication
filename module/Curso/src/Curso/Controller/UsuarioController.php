@@ -17,7 +17,22 @@ class UsuarioController extends AbstractActionController
 	    }
 	    
 	    public function AddAction(){
+
+	    	$prg = $this->prg('/usuario/index', true);
+	    	$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
+	    	if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
+	    		$datos=array();
+	    		$datos['user_id']="";
+	    		$datos['nombre']=$this->params()->fromPost('nombre');
+	    		$datos['apellido_paterno']=$this->params()->fromPost('apellido_paterno');
+	    		$datos['apellido_materno']=$this->params()->fromPost('apellido_materno');
+	    		$usuario->add($datos);
+	    		
+	    		return $prg;
+	    	}
+	    
 	    	
+	    	return new ViewModel();
 	    }
 	    
 	    public function DeleteAction(){
@@ -48,7 +63,7 @@ class UsuarioController extends AbstractActionController
 	    		// returned a response to redirect us
 	    		return $prg;
 	    	}
-            print_r($this->params()->fromPost('nombre'));
+            
 	    	
 	    	return new ViewModel($data);
 	    }
