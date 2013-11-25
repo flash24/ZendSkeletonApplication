@@ -13,8 +13,23 @@ class UsuarioController extends AbstractActionController
 	      	/////////////////////
 	      
 	    	$usuario->loadById($params['id']);
+	    	//print_r($usuario);
 	    	$data['hola']=$usuario->getPersona();
+	    	$data['all']=$usuario->loadAll();
 	        return new ViewModel($data);
 	    }
+	    
+	    public function AddAction(){
+	    	
+	    }
+	    
+	    public function DeleteAction(){
+	    	
+	    }
+	    
+	    public function EditAction(){
+	    	
+	    }
+	    
 	
 }

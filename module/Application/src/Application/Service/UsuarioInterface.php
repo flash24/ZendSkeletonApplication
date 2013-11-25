@@ -10,4 +10,6 @@ interface UsuarioInterface{
 	public function setNombre($nombre);
 	public function setApellidoPaterno($apellidoPaterno);
 	public function setApellidoMaterno($apellidoMaterno);
+	
+	
 }

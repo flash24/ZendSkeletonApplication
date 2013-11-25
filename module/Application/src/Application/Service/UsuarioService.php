@@ -5,6 +5,8 @@ class UsuarioService implements UsuarioInterface{
 	protected $apellidoPaterno;
 	protected $apellidoMaterno;
 	protected $persona;
+	
+	
 	public function getNombre() {
 		return $this->nombre;
 	}

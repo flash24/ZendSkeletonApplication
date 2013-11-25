@@ -4,7 +4,7 @@ namespace Curso\Service;
 use Application\Service\UsuarioInterface;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
-
+use Zend\Db\Adapter\Adapter;
 
 class UsuarioService implements UsuarioInterface,ServiceManagerAwareInterface{
 	
@@ -46,8 +46,16 @@ class UsuarioService implements UsuarioInterface,ServiceManagerAwareInterface{
 	
 	function hydrator($data){
 		$this->setNombre($data->nombre);
-		$this->setApellidoPaterno($data->nombre);
+		$this->setApellidoPaterno($data->apellido_paterno);
 		$this->setApellidoMaterno($data->apellido_materno);
+	}
+	
+	function loadAll(){
+		$adapter=$this->getServiceManager()->get('Zend\Db\Adapter\Adapter');
+		$result=$adapter->query('SELECT * FROM `user`',Adapter::QUERY_MODE_EXECUTE);
+		
+		$data=$result->toArray();
+		return $data;
 	}
 	
 	

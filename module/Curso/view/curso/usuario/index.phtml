@@ -1,4 +1,37 @@
+<?php 
+//print_r($this->all[0]['nombre']);
+
+?>
+
 <?php
 
-echo $this->hola;
+$title = 'Usuario';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="/usuario/add">Add nuevo usuario</a>
+</p>
 
+<table class="table">
+<tr>
+    <th>Nombre</th>
+    <th>Primer Apellido</th>
+    <th>Segundo Apellido</th>
+    <th>&nbsp;</th>
+</tr>
+<?php $cont=0; foreach ($this->all as $usuario) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($usuario['nombre']);?></td>
+    <td><?php echo $this->escapeHtml($usuario['apellido_materno']);?></td>
+    <td><?php echo $this->escapeHtml($usuario['apellido_paterno']);?></td>
+    <td>
+    <a href="/usuario/edit/<?php echo $usuario['user_id'];?>">Editar</a>
+    <a href="/usuario/delete/<?php echo $usuario['user_id'];?>">Borrar</a>
+    <!--     <a href="<?php //echo $this->url('usuario',array('action'=>'edit', 'id' => $usuario['user_id']));?>">Edit</a>
+        <a href="<?php // echo $this->url('usuario',array('action'=>'delete', 'id' => $usuario['user_id']));?>">Delete</a> -->
+    </td>
+</tr>
+<?php $cont++;?>
+<?php endforeach; ?>
+</table>
