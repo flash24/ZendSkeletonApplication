@@ -24,7 +24,13 @@ class UsuarioController extends AbstractActionController
 	    }
 	    
 	    public function DeleteAction(){
+ 	    	$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
+ 	    	$params=$this->params()->fromRoute();
+	    
 	    	
+ 	    	$data['delete']=$usuario->deleteById($params['id']);
+   //         $data['delete']=$params['id'];
+	    	return new ViewModel($data);
 	    }
 	    
 	    public function EditAction(){
