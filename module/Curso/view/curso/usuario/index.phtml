@@ -25,7 +25,7 @@ $this->headTitle($title);
     
 </tr>
 
-<?php $cont=0; foreach ($this->all as $usuario) : ?>
+<?php foreach ($this->all as $usuario) : ?>
 <tr>
     <td><?php echo $this->escapeHtml($usuario['nombre']);?></td>
     <td><?php echo $this->escapeHtml($usuario['apellido_materno']);?></td>
@@ -33,11 +33,10 @@ $this->headTitle($title);
     <td>
     <a href="/usuario/edit/<?php echo $usuario['user_id'];?>">Editar</a>
     <a href="/usuario/delete/<?php echo $usuario['user_id'];?>">Borrar</a>
-    <!--     <a href="<?php //echo $this->url('usuario',array('action'=>'edit', 'id' => $usuario['user_id']));?>">Edit</a>
-        <a href="<?php // echo $this->url('usuario',array('action'=>'delete', 'id' => $usuario['user_id']));?>">Delete</a> -->
+    
     </td>
 </tr>
-<?php $cont++;?>
+
 <?php endforeach; ?>
 </table>
 </div>

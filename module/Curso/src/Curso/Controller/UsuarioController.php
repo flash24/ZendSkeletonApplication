@@ -3,10 +3,17 @@ namespace Curso\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+
 class UsuarioController extends AbstractActionController
 {
+	Const ROTE_LOGIN = 'zfcuser/login';	
 	public function indexAction()
 	    {
+// 	    if ($this->zfcUserAuthentication()->hasIdentity()) {
+   
+// }else{
+// 	return $this->redirect()->toRoute(static::ROTE_LOGIN);
+// }
 	    	//Sellama al servicio
 	    	$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
 	      	$params=$this->params()->fromRoute();
@@ -17,7 +24,7 @@ class UsuarioController extends AbstractActionController
 	    }
 	    
 	    public function AddAction(){
-
+            
 	    	$prg = $this->prg('/usuario/index', true);
 	    	$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
 	    	if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
@@ -50,10 +57,12 @@ class UsuarioController extends AbstractActionController
 	    }
 	    
 	    public function EditAction(){
+	    	
 	    	$prg = $this->prg('/usuario/index', true);
 	    	$usuario=$this->getServiceLocator()->get('Curso\Service\UsuarioService');
 	    	$params=$this->params()->fromRoute();
 	    	$data['datos']=$usuario->loadById($params['id']);
+	    	//////
 	    	if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
 	    		$datos=array();
 	    		$datos['nombre']=$this->params()->fromPost('nombre');

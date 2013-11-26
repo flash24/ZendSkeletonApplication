@@ -52,7 +52,6 @@ class UsuarioService implements UsuarioInterface, ServiceManagerAwareInterface {
 	function loadAll() {
 		$adapter = $this->getServiceManager ()->get ( 'Zend\Db\Adapter\Adapter' );
 		$result = $adapter->query ( 'SELECT * FROM `usuario`', Adapter::QUERY_MODE_EXECUTE );
-		
 		$data = $result->toArray ();
 		return $data;
 	}
